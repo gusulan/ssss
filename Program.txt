@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+namespace appUC
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 pengxiang = new Class1();
+            Console.WriteLine("提示：用户名为刘思聪，密码为123");
+            Console.WriteLine("请输入用户名：");
+            String name = Console.ReadLine();
+            Console.WriteLine("请输入密码：");
+            String password = Console.ReadLine();
+            if (name.Equals("刘思聪") && password.Equals("123"))
+            {
+                int count = 0;
+                Console.WriteLine("登录成功！");
+                do
+                {
+                    Console.WriteLine("=======欢迎登录UC用户信息管理系统=======");
+                    Console.WriteLine("1.显示所有用户清单");
+                    Console.WriteLine("2.更新用户在线天数（根据用户昵称）");
+                    Console.WriteLine("3.添加用户新纪录");
+                    Console.WriteLine("4.更新用户等级");
+                    Console.WriteLine("5.删除用户记录");
+                    Console.WriteLine("0.退出系统");
+                    Console.WriteLine("======================");
+                    count = int.Parse(Console.ReadLine());
+                    switch (count)
+                    {
+                        case 1:
+                            Console.WriteLine("选择了显示所有用户清单");
+                            pengxiang.abc();
+                            break;
+                        case 2:
+                            Console.WriteLine("选择了更新用户在线天数（根据用户昵称）");
+                            pengxiang.abc2();
+                            break;
+                        case 3:
+                            Console.WriteLine("选择了添加用户新纪录");
+                            pengxiang.abc3();
+                            break;
+                        case 4:
+                            Console.WriteLine("选择了更新用户等级");
+                            pengxiang.abc4();
+                            break;
+                        case 5:
+                            Console.WriteLine("选择了删除用户记录");
+                            pengxiang.abc5();
+                            break;
+                        case 0:
+                            Console.WriteLine("选择了退出系统");
+                            break;
+                        default:
+                            Console.WriteLine("您的输入有误");
+                            break;
+                    }
+                } while (count != 0);
+            }
+            else
+            {
+                Console.WriteLine("认证错误，登录失败");
+            }
+        }
+    }
+}

@@ -1,0 +1,195 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data.SqlClient;
+
+namespace appUC
+{
+    class UCclass
+    {
+        //显示所有用户清单
+        public void abc()
+        {
+            String connStr = "data source=.;initial catalog=UCdb;user id=sa; pwd=sasa";
+            String selectSql = "select us.ucNo,us.nockName,ul.levelMark,us.email,us.onlineDays from UserLevel as ul inner join users as us on ul.leveNo=us.levelNo";
+            SqlConnection conn = null;
+            try
+            {
+                conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(selectSql, conn);
+                SqlDataReader rows = cmd.ExecuteReader();
+                Console.WriteLine("编号\t昵称\t等级\t邮箱\t\t\t在线天数");
+                while (rows.Read())
+                {
+                    Console.WriteLine(rows["ucNo"] + "\t" + rows["nockName"] + "\t"
+                            + rows["levelMark"] + "\t" + rows["email"] + "\t\t" + rows["onlineDays"]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }    
+        }
+        //更新用户在线天数（根据用户昵称）
+        public void abc2()
+        {
+            String connStr = "data source=.;initial catalog=UCdb;user id=sa; pwd=sasa";
+            SqlConnection conn = null;
+            Console.WriteLine("请输入要更新的用户在线天数的昵称：");
+            String Name = Console.ReadLine();
+            Console.WriteLine("请输入需要改变的用户在线天数：");
+            int TianShu = int.Parse(Console.ReadLine());
+            string insertStr = "update users set onlineDays=" + TianShu + " where nockName='"+Name+"'";
+            Console.WriteLine("sql语句为：" + insertStr);
+            try
+            {
+                conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(insertStr, conn);
+                int result = cmd.ExecuteNonQuery();
+                if (result >= 1)
+                {
+                    Console.WriteLine("修改成功");
+                }
+                else
+                {
+                    Console.WriteLine("修改失败");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        //添加用户新纪录
+        public void abc3()
+        {
+            String connStr = "data source=.;initial catalog=UCdb;user id=sa; pwd=sasa";
+            SqlConnection conn = null;
+            Console.WriteLine("请输入新添加用户昵称：");
+            String Name=Console.ReadLine();
+            Console.WriteLine("请输入新添加用户密码：");
+            String Mima=Console.ReadLine();
+            Console.WriteLine("请输入新添加用户电子邮箱：");
+            String YouXiang=Console.ReadLine();
+            string insertStr = "insert into users values('"+Name+"',"+"'"+Mima+"',"+"'"+YouXiang+"',"+"1,1);";
+            Console.WriteLine("sql语句为：" + insertStr);
+            try
+            {
+                conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(insertStr, conn);
+                int result = cmd.ExecuteNonQuery();
+                if (result >= 1)
+                {
+                    Console.WriteLine("修改成功");
+                }
+                else
+                {
+                    Console.WriteLine("修改失败");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        //更新用户等级
+        public void abc4()
+        {
+            String connStr = "data source=.;initial catalog=UCdb;user id=sa; pwd=sasa";
+            SqlConnection conn = null;
+            Console.WriteLine("请输入需要更新用户的名字：");
+            String Name = Console.ReadLine();
+            Console.WriteLine("请输入更新用户的等级：\n（提示：只有1-4级）");
+            int Lv = int.Parse(Console.ReadLine());
+            string insertStr = "update users set levelNo="+Lv+"where nockName='"+Name+"';";
+            Console.WriteLine("sql语句为：" + insertStr);
+            try
+            {
+                conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(insertStr, conn);
+                int result = cmd.ExecuteNonQuery();
+                if (result >= 1)
+                {
+                    Console.WriteLine("修改成功");
+                }
+                else
+                {
+                    Console.WriteLine("修改失败");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        //删除用户记录
+        public void abc5()
+        {
+            String connStr = "data source=.;initial catalog=UCdb;user id=sa; pwd=sasa";
+            SqlConnection conn = null;
+            Console.WriteLine("请输入需要删除的用户的名字：");
+            String Name = Console.ReadLine();
+            string insertStr = "delete from users where nockName='" + Name + "';";
+            Console.WriteLine("sql语句为：" + insertStr);
+            try
+            {
+                conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(insertStr, conn);
+                int result = cmd.ExecuteNonQuery();
+                if (result >= 1)
+                {
+                    Console.WriteLine("修改成功");
+                }
+                else
+                {
+                    Console.WriteLine("修改失败");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+    }
+}
